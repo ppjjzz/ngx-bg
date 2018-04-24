@@ -1,0 +1,10 @@
+<div class="bg-input" [class.bg-input-focus]="_isFocus" [ngStyle]="{width: bgWidth}" [attr.data-placeholder]="(_isFocus || _inputValue) ? _originPlaceholder : ''">
+  <input type="text" (blur)="blur()" (focus)="focus()"
+  [class.bg-input-sm]="nzSize === 'small'"
+  [class.bg-input-lg]="nzSize === 'large'"
+  [placeholder]="_placeholder"
+  [ngModel]="_inputValue"
+  (ngModelChange)="_inputValue = $event.trim();onChangeCallback(_inputValue);_canClear = !!_inputValue"
+  >
+  <i class="anticon anticon-close" [ngStyle]="{display:_canClear ? '' : 'none'}" (click)="_inputValue = '';onChangeCallback(_inputValue); _canClear = false"></i>
+</div>

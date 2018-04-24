@@ -1,0 +1,42 @@
+<div>
+  <div cdkOverlayOrigin class="ant-select-selection pl-select" (click)="isOpen = !isOpen" [class.select-focused]="isOpen" [ngStyle]="{'min-height': height + 'px', 'width': width + 'px'}">
+    <div class="ant-select-selection__rendered">
+      <span class="ant-select-selection__placeholder" *ngIf="!selectedItem.length;else nzTag">{{placeholder}}</span>
+      <ng-template #nzTag>
+        <ng-container *ngFor="let tag of selectedItem; let i = index;">
+          <nz-tag nzMode="closeable" *ngIf="i + 1 <= maxVisibleItemCount || isUnFold" (click)="$event.stopPropagation()" [title]="tag.path"
+          (nzAfterClose)="removeTag(tag)">
+          {{sliceTagName(tag.name)}}
+        </nz-tag>
+        </ng-container>
+      </ng-template>
+    </div>
+    <p class="selected-count" *ngIf="selectedItem.length > maxVisibleItemCount" (click)="unFoldSelected($event)">({{selectedItem.length}})项</p>
+  </div>
+  <ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayHasBackdrop]="true"
+  [cdkConnectedOverlayOrigin]="cdkOverlayOrigin"
+  [cdkConnectedOverlayWidth]="'auto'"
+  [cdkConnectedOverlayOpen]="isOpen"
+  (backdropClick)="isOpen = !isOpen">
+  <div class="ant-select-dropdown pl-select-dropdown">
+    <ul class="select-dropdown-list">
+      <li *ngFor="let item of list" [class.enter-list-item]="item['enter']" (mouseenter)="(item.children && item.children.length) ? pushNextList(item, 0, list) : hoverList(item, 0, list)">
+        <label nz-checkbox [(ngModel)]="item._checked" (ngModelChange)="changeSelect($event, item)">
+          <span class="text-ellipsis" [title]="item.name">{{item.name}}</span>
+          <i class="anticon anticon-right" *ngIf="item.children && item.children.length"></i>
+        </label>
+      </li>
+    </ul>
+    <ul *ngFor="let item of enterList; let listIdx = index;" class="select-dropdown-list">
+      <li *ngFor="let child of item.children" [class.enter-list-item]="child.enter" (mouseenter)="(child.children && child.children.length) ? pushNextList(child, listIdx + 1, item.children) : hoverList(child, listIdx + 1, item.children)">
+        <label nz-checkbox [(ngModel)]="child._checked" (ngModelChange)="changeSelect($event, child)">
+          <span class="text-ellipsis" [title]="child.name">{{child.name}}</span>
+          <i class="anticon anticon-right" *ngIf="child.children && child.children.length"></i>
+        </label>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+</div>

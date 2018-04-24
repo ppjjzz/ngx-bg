@@ -121,12 +121,15 @@
       true,
       "attribute",
       "app",
-      "camelCase"
+      "bg",
+      "camelCase",
+      "kebab-case"
     ],
     "component-selector": [
       true,
       "element",
       "app",
+      "bg",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

@@ -33,6 +33,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/cdk@^5.0.0", "@angular/cdk@^5.2.5":
+  version "5.2.5"
+  resolved "http://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-5.2.5.tgz#cae2b12e1990a692dd267a73fdb1d49db37f9604"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@~1.7.4":
   version "1.7.4"
   resolved "http://registry.npm.taobao.org/@angular/cli/download/@angular/cli-1.7.4.tgz#b6c31b5fc6f8ea07e55b1b01a26422f5358a4ea6"
@@ -1628,6 +1634,10 @@ dashdash@^1.12.0:
 data-uri-to-buffer@1:
   version "1.2.0"
   resolved "http://registry.npm.taobao.org/data-uri-to-buffer/download/data-uri-to-buffer-1.2.0.tgz#77163ea9c20d8641b4707e8f18abdf9a78f34835"
+
+date-fns@^1.29.0:
+  version "1.29.0"
+  resolved "http://registry.npm.taobao.org/date-fns/download/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
 
 date-format@^1.2.0:
   version "1.2.0"
@@ -4276,6 +4286,13 @@ netmask@~1.0.4:
 next-tick@1:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/next-tick/download/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
+
+ng-zorro-antd@0.7.0-beta.4:
+  version "0.7.0-beta.4"
+  resolved "http://registry.npm.taobao.org/ng-zorro-antd/download/ng-zorro-antd-0.7.0-beta.4.tgz#e9c790f0f826f974ed1a29d748a1f28c1dc9cced"
+  dependencies:
+    "@angular/cdk" "^5.0.0"
+    date-fns "^1.29.0"
 
 no-case@^2.2.0:
   version "2.3.2"

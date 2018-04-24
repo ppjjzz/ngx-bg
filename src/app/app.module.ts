@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { NgxBangModule } from './ngx-bang/ngx-bang.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +13,10 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    NgxBangModule
   ],
   providers: [],
   bootstrap: [AppComponent]

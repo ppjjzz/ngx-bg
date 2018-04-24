@@ -7,4 +7,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  str = 'sdasd';
+  list = [
+    {
+      id: 3294,
+      name: 'Women',
+      path: 'Women',
+      children: [
+        {
+          id: 3299,
+          name: 'Dresses',
+          path: 'Women >Dresses',
+          children: []
+        }
+      ]
+    }
+  ];
 }
