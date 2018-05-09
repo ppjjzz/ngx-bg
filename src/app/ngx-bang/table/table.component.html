@@ -1,0 +1,55 @@
+<nz-spin nzTip='Loading...' [nzSpinning]="isLoading">
+  <div class="bg-table-container" (scroll)="scroll($event)">
+    <!-- 表头开始 -->
+    <div class="bg-table-row-container">
+      <div class="bg-table-header-fixed">
+        <div class="bg-table-cell bg-table-cell-fixed bg-table-checkbox" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
+          <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)"></label>
+        </div>
+        <div *ngFor="let item of tableConfig;let configIndex = index;" class="bg-table-cell bg-table-cell-fixed" [class.bg-table-cell-fixed]="item.fixed"
+          [class.bg-table-colum-desc]="item.sortType === 'desc'" [class.bg-table-colum-asc]="item.sortType === 'asc'" [style.transform]="item.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
+          [style.justify-content]="item.textAlign" [style.min-width]="item.width ? item.width + 'px' : ''" (click)="sortColum(configIndex)">
+          <p class="text-ellipsis">{{item.title}}</p>
+          <div class="caret-wrapper" *ngIf="item.canSort">
+            <i class="sort-caret ascending"></i>
+            <i class="sort-caret descending"></i>
+          </div>
+          <div class="column-resize-line-handle" (click)="$event.stopPropagation();
+      " (mousedown)="columnResizeStart($event, configIndex)">
+            <div class="column-resize-line"></div>
+          </div>
+        </div>
+      </div>
+      <!-- 表头结束 -->
+      <!-- 表体开始 -->
+
+      <div class="bg-table-row" *ngFor="let item of tableData;">
+        <div class="bg-table-cell bg-table-cell-fixed bg-table-checkbox" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
+          <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus()"></label>
+        </div>
+        <div *ngFor="let col of tableConfig;" class="bg-table-cell" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
+          [style.justify-content]="col.textAlign" [style.min-width]="col.width ? col.width + 'px' : ''">
+          <p class="text-ellipsis">{{item[col.fieldName]}}</p>
+        </div>
+      </div>
+      <div class="bg-table-row bg-table-row-bottom">
+        <div class="bg-table-cell bg-table-cell-fixed" style="min-width: 32px;flex-grow: 0;" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
+        </div>
+        <div *ngFor="let col of tableConfig;" class="bg-table-cell" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
+          [style.justify-content]="col.textAlign" [style.min-width]="col.width ? col.width + 'px' : ''">
+          <p class="text-ellipsis">{{tableBottomData[col.fieldName]}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- 表体结束 -->
+    <!-- 拖动线 -->
+    <div class="bg-table-column-active-line" *ngIf="columResizeConfig.resizeStartX" [style.transform]="'translate3d('+ columResizeConfig.resizeStartX +'px,'+scrollTop+'px,0)'"></div>
+  </div>
+</nz-spin>
+<div class="bg-table-pagination-bar">
+  <nz-pagination [(nzPageIndex)]="page_index" nzSize="small" [nzPageSizeOptions]="[20,50,100]" [nzTotal]="total_count" nzShowSizeChanger
+    [(nzPageSize)]="page_size" [nzShowTotal]="totalTemplate"></nz-pagination>
+  <ng-template #totalTemplate let-total>
+    Total {{total}} items
+  </ng-template>
+</div>

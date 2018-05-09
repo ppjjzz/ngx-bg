@@ -1,0 +1,65 @@
+<nz-modal [nzWidth]="1040" [nzBodyStyle]="{padding: 0}" [nzVisible]="true" nzTitle="Modify columns" [nzMaskClosable]="false"
+  [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()">
+  <div class="columns-modal-container">
+    <div class="columns-modal-container-left">
+      <div nz-row nzGutter="10" style="margin-bottom: 30px;">
+        <div nz-col nzSpan="12">
+          <nz-input-group nzSuffixIcon="anticon anticon-search">
+            <input type="text" [(ngModel)]="filterKeyWords" (ngModelChange)="filterKeyWordsChange($event)" nz-input placeholder="Please enter keyword">
+          </nz-input-group>
+        </div>
+        <div nz-col nzSpan="8">
+          <nz-select style="width: 100%;" [(ngModel)]="personalColums" nzAllowClear nzShowSearch nzPlaceHolder="Choose">
+            <nz-option *ngFor="let item of personalColumsList" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <mat-accordion multi="true">
+        <mat-expansion-panel *ngFor="let columsConfig of columsConfigList">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <label style="font-weight: bold;" (click)="$event.stopPropagation();
+              " nz-checkbox [(ngModel)]="columsConfig.checked" (ngModelChange)="updateAllChecked(columsConfig)" [nzIndeterminate]="columsConfig.indeterminate">
+                {{columsConfig.category}}
+              </label>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="colums-list-box">
+            <div *ngFor="let columConfig of columsConfig.colums">
+              <div [class.high-light]="filterKeyWords && filterRegExp && filterRegExp.test(columConfig.title)">
+                <label class="colums-list-checkbox" nz-checkbox [(ngModel)]="columConfig.checked" (ngModelChange)="updateSingleChecked(columConfig, columsConfig)">
+                  {{columConfig.title}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="columns-modal-container-right">
+      <p>Selected ({{ selectedColums.length }})</p>
+      <div class="ngx-dnd-container" [model]="selectedColums"
+          ngxDroppable>
+        <div
+          class="drag-item"
+          ngxDraggable
+          *ngFor="let item of selectedColums"
+          [model]="item">
+            <i class="iconfont drag-btn">&#xe60f;</i><p class="text-ellipsis">{{item.title}}</p><i class="iconfont del-btn" (click)="delSelect($event, item)">&#xe611;</i>
+          </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #modalFooter>
+    <div class="columns-modal-footer">
+      <div class="save-columns">
+        <label nz-checkbox [(ngModel)]="saveColumns">Save the columns setting</label>
+        <input *ngIf="saveColumns" nz-input placeholder="Please enter the template name" [(ngModel)]="templateName" style="width: 220px;">
+      </div>
+      <div>
+        <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="isConfirmLoading">Confirm</button>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>
