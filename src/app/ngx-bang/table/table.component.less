@@ -135,10 +135,11 @@
     flex-grow: 1;
     padding: 0 8px;
     min-width: 88px;
+    width: 88px;
     &.bg-table-cell-fixed {
         z-index: 2;
     }
-    &.bg-table-cell-fixed:nth-of-type(2) {
+    &.last-fixed-column {
         &::after {
             content: "";
             width: 0;
@@ -150,6 +151,9 @@
             border-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.25)) 1 75%;
             border-right: 4px solid transparent;
         }
+    }
+    .text-ellipsis {
+        min-height: 14px;
     }
 }
 .bg-table-checkbox {

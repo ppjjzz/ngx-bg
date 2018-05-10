@@ -6,7 +6,7 @@
         <div class="bg-table-cell bg-table-cell-fixed bg-table-checkbox" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
           <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)"></label>
         </div>
-        <div *ngFor="let item of tableConfig;let configIndex = index;" class="bg-table-cell bg-table-cell-fixed" [class.bg-table-cell-fixed]="item.fixed"
+        <div *ngFor="let item of _tableConfig;let configIndex = index;" class="bg-table-cell bg-table-cell-fixed" [class.last-fixed-column]="lastFixedColumn === item.fieldName" [class.bg-table-cell-fixed]="item.fixed"
           [class.bg-table-colum-desc]="item.sortType === 'desc'" [class.bg-table-colum-asc]="item.sortType === 'asc'" [style.transform]="item.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
           [style.justify-content]="item.textAlign" [style.min-width]="item.width ? item.width + 'px' : ''" (click)="sortColum(configIndex)">
           <p class="text-ellipsis">{{item.title}}</p>
@@ -24,18 +24,20 @@
       <!-- 表体开始 -->
 
       <div class="bg-table-row" *ngFor="let item of tableData;">
-        <div class="bg-table-cell bg-table-cell-fixed bg-table-checkbox" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
-          <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus()"></label>
+        <div class="fixed-column">
+          <div class="bg-table-cell bg-table-cell-fixed bg-table-checkbox" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
+            <label nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="_refreshStatus()"></label>
+          </div>
         </div>
-        <div *ngFor="let col of tableConfig;" class="bg-table-cell" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
+        <div *ngFor="let col of _tableConfig;" class="bg-table-cell" [class.last-fixed-column]="lastFixedColumn === col.fieldName" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
           [style.justify-content]="col.textAlign" [style.min-width]="col.width ? col.width + 'px' : ''">
           <p class="text-ellipsis">{{item[col.fieldName]}}</p>
         </div>
       </div>
       <div class="bg-table-row bg-table-row-bottom">
-        <div class="bg-table-cell bg-table-cell-fixed" style="min-width: 32px;flex-grow: 0;" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
+        <div class="bg-table-cell bg-table-cell-fixed" style="min-width: 32px;flex-grow: 0;width: 32px;" [style.transform]="'translate3d('+scrollLeft+'px,0,0)'">
         </div>
-        <div *ngFor="let col of tableConfig;" class="bg-table-cell" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
+        <div *ngFor="let col of _tableConfig;" class="bg-table-cell" [class.last-fixed-column]="lastFixedColumn === col.fieldName" [class.bg-table-cell-fixed]="col.fixed" [style.transform]="col.fixed ? 'translate3d('+scrollLeft+'px,0,0)' : ''"
           [style.justify-content]="col.textAlign" [style.min-width]="col.width ? col.width + 'px' : ''">
           <p class="text-ellipsis">{{tableBottomData[col.fieldName]}}</p>
         </div>
@@ -53,3 +55,4 @@
     Total {{total}} items
   </ng-template>
 </div>
+<button nz-button nzType="primary" (click)="openCustomColumModal.emit()">Primary</button>

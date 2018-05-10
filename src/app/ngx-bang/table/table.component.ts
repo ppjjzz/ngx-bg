@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ColumConfig } from './interface';
+import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { ColumnConfig } from './interface';
 import { ColumResizeConfig } from './colum-resize-config';
 
 @Component({
@@ -15,12 +15,23 @@ export class TableComponent implements OnInit {
   public page_size = 20; // 表格每页条数
   public _allChecked = false; // 表格全选按钮状态
   public _indeterminate = false; // 全选按钮不定状态
+  public lastFixedColumn = '';
   public scrollTop = 0; // 表格当前滚动的高度
   public scrollLeft = 0; // 表格当前滚动的横向距离
+  public _tableConfig: ColumnConfig[] = []; // 表格列配置数组
   public columResizeConfig = new ColumResizeConfig();
-  @Input() tableConfig: ColumConfig[]; // 表格列配置数组
+  @Input() // 表格列配置数组
+  get tableConfig() {
+    return this._tableConfig;
+  }
+  set tableConfig(value: ColumnConfig[]) {
+    const reverseTableConfig = [...value].reverse();
+    this.lastFixedColumn = reverseTableConfig.find(x => x.fixed).fieldName;
+    this._tableConfig = value;
+  }
   @Input() tableData: any[]; // 表格数据
   @Input() tableBottomData: any = {}; // 表格底部固定栏数据
+  @Output() openCustomColumModal = new EventEmitter();
   constructor() { }
 
   ngOnInit() {

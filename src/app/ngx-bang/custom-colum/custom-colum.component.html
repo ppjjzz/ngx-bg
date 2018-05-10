@@ -37,13 +37,14 @@
       </mat-accordion>
     </div>
     <div class="columns-modal-container-right">
-      <p>Selected ({{ selectedColums.length }})</p>
-      <div class="ngx-dnd-container" [model]="selectedColums"
+      <p>Selected ({{ selectedColumns.length }})</p>
+      <div class="ngx-dnd-container" [model]="selectedColumns"
           ngxDroppable>
         <div
           class="drag-item"
           ngxDraggable
-          *ngFor="let item of selectedColums"
+          *ngFor="let item of selectedColumns"
+          [title]="item.title"
           [model]="item">
             <i class="iconfont drag-btn">&#xe60f;</i><p class="text-ellipsis">{{item.title}}</p><i class="iconfont del-btn" (click)="delSelect($event, item)">&#xe611;</i>
           </div>

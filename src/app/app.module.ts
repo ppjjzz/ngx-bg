@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { NgxBangModule } from './ngx-bang/ngx-bang.module';
 import { FormsModule } from '@angular/forms';
+import { AdListService } from './ad-list.service';
 
 
 @NgModule({
@@ -18,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     NgxBangModule
   ],
-  providers: [],
+  providers: [AdListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

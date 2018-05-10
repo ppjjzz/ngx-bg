@@ -1,5 +1,5 @@
 /* 表格列配置 */
-export interface ColumConfig {
+export interface ColumnConfig {
     title: string; // 表头标题
     fieldName?: string; // 后端返回字段名
     // id?: number | string; // 字段id

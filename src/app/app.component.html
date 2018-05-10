@@ -1,4 +1,4 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <bg-input placeholder="large size" [(ngModel)]="str"></bg-input>
-<bg-table [tableConfig]="tableConfig" [tableData]="tableData" [tableBottomData]="tableBottomData"></bg-table>
-<bg-custom-colum></bg-custom-colum>
+<bg-table [tableConfig]="currentColumnsTemp" [tableData]="tableData" [tableBottomData]="tableBottomData" (openCustomColumModal)="showCustomColumModal = true"></bg-table>
+<bg-custom-colum (bgCancel)="customColumClose()" (bgConfirm)="customColumConfirm($event)" *ngIf="showCustomColumModal" [currentColumnsTemp]="currentColumnsTemp"></bg-custom-colum>

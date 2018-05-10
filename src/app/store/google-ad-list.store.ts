@@ -1,5 +1,5 @@
-import { ColumConfig } from '../ngx-bang/table/interface';
-import { ColumsConfig } from '../ngx-bang/custom-colum/interface';
+import { ColumnConfig } from '../ngx-bang/table/interface';
+import { ColumnsConfig } from '../ngx-bang/custom-colum/interface';
 
 // export interface ColumsConfig {
 //     category: string;
@@ -42,10 +42,16 @@ import { ColumsConfig } from '../ngx-bang/custom-colum/interface';
 //     }
 // };
 
-export const COLUMS_CONFIG_LIST: ColumsConfig[] = [
+export const COLUMS_CONFIG_LIST: ColumnsConfig[] = [
     {
         category: 'Situation',
         colums: [
+            {
+                title: 'Name',
+                fieldName: 'name',
+                textAlign: 'flex-start',
+                fixed: true
+            },
             {
                 title: 'Budget',
                 fieldName: 'budget',
@@ -96,6 +102,18 @@ export const COLUMS_CONFIG_LIST: ColumsConfig[] = [
             {
                 title: 'Cost per Website Add to Cart',
                 fieldName: 'costPerAddToCart',
+                textAlign: 'flex-end',
+                canSort: true
+            },
+            {
+                title: 'CPC(All)',
+                fieldName: 'cpc',
+                textAlign: 'flex-end',
+                canSort: true
+            },
+            {
+                title: 'CPC(Cost per Link Click)',
+                fieldName: 'cost_per_inline_link_click',
                 textAlign: 'flex-end',
                 canSort: true
             }
